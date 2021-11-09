@@ -1,10 +1,13 @@
 <?php
 include('../resources/navbar.php');
-include('../resources/header.php'); ?>
+include('../resources/header.php');
+include ('includes/register_login.php');
+?>
 <section class="px-6 py-8">
     <main class="max-w-lg mx-auto mt-10 bg-gray-100 border border-gray-200 p-6 rounded-xl ">
         <h1 class="text-center text-xl font-bold ">Register</h1>
-        <form method="POST" action="#" class="mt-10">
+        <form method="POST" action="register.php" class="mt-10">
+
             <div class="mb-6 ">
                 <label for="name" class="block mb-2 uppercase font-bold text-xs text-gray-700">
                     Name
@@ -13,8 +16,7 @@ include('../resources/header.php'); ?>
                        type="text"
                        name="name"
                        id="name"
-                       value="{{old('name')}}"
-                       required
+                       value="<?php echo $name; ?>"
                 >
 
             </div>
@@ -26,9 +28,7 @@ include('../resources/header.php'); ?>
                        type="text"
                        name="username"
                        id="username"
-                       value="{{old('username')}}"
-
-                       required
+                       value="<?php echo $username; ?>"
                 >
 
             </div>
@@ -40,9 +40,7 @@ include('../resources/header.php'); ?>
                        type="email"
                        name="email"
                        id="email"
-                       value="{{old('email')}}"
-
-                       required
+                       value="<?php echo $email; ?>"
                 >
 
             </div>
@@ -55,24 +53,17 @@ include('../resources/header.php'); ?>
                        type="password"
                        name="password"
                        id="password"
-                       required
                 >
 
             </div>
             <div class="mb-6 ">
-                <button type="submit" class="bg-blue-400 text-white py-2 px-4 rounded hover:bg-blue-500">
-                    Submit
+                <button type="submit" name="reg_user" class="bg-blue-400 text-white py-2 px-4 rounded hover:bg-blue-500">
+                    Sign Up
                 </button>
             </div>
-            @if($errors->any())
-            <ul>
-                @foreach($errors->all() as $error)
-                <li class="text-red-500 text-xs mt-1 ">
-                    {{$error}}
-                </li>
-                @endforeach
-            </ul>
-            @endif
+            <div class="text-red-500 text-xs mt-1">
+                <?php include 'includes/errors.php'?>
+            </div>
 
         </form>
 
