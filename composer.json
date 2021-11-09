@@ -1,0 +1,10 @@
+{
+  "autoload": {
+    "classmap": [
+      "app/Models","app/includes","app/config","resources/images"
+    ]
+
+
+
+  }
+}
