@@ -20,11 +20,11 @@ class Post extends connection
                 WHERE id = $id ";
         $posts = [];
         // fetch all posts as an associative array called $posts
-        $result = $conn->query($sql) ;
-        while($row = $result->fetch_assoc()){
-            $posts[]=$row;
-        }
-        return $posts;
+        $result = $conn->query($sql)->fetch_assoc() ;
+//        while($row = $result->fetch_assoc()){
+//            $posts[]=$row;
+//        }
+        return $result;
     }
     public function getCatPosts($id){
         $conn=connection::DBconnect();

@@ -7,6 +7,18 @@ class User extends connection
 
 
     }
+    public function getAllUsers(){
+        $conn=connection::DBconnect();
+        $sql = "SELECT * FROM users";
+        $users = [];
+        // fetch all posts as an associative array called $posts
+        $result = $conn->query($sql) ;
+        while($row = $result->fetch_assoc()){
+            $users[]=$row;
+        }
+        return $users;
+    }
+
     public function getUserById($id){
         $conn=connection::DBconnect();
         $sql="SELECT * FROM users WHERE id=

@@ -10,6 +10,17 @@ class Category extends connection
 //    {
 //        $this->conn = connection::DBconnect();
 //    }
+    public function getAllCategories(){
+        $conn=connection::DBconnect();
+        $sql = "SELECT * FROM categories";
+        $categories = [];
+        // fetch all posts as an associative array called $posts
+        $result = $conn->query($sql) ;
+        while($row = $result->fetch_assoc()){
+            $categories[]=$row;
+        }
+        return $categories;
+    }
 
     public function getCategoryById($id){
         $conn=connection::DBconnect();

@@ -77,6 +77,7 @@ if (isset($_POST['login_btn'])) {
 
             // put logged in user into session array
             $_SESSION['user'] = getUserById($reg_user_id);
+            //print_r($_SESSION['user']);die();
 
             // if user is admin, redirect to admin area
             if ($_SESSION['user']['role'] == "admin") {
