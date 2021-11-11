@@ -1,9 +1,8 @@
 <?php
-$page = "categories";
+$page = "users";
 include 'dashboradLayout.php';
-include 'categories.php' ?>
-
-    </main>
+include 'editUserForm.php'; ?>
+</main>
 </section>
 <?php include('C:\xampp\htdocs\Laravel\phpBlog\resources\footer.php') ?>
 

@@ -1,5 +1,4 @@
 <?php
-$createPost=true;
 include 'storePost.php';
 require_once("../Models/Category/Category.php");
 $categories = (new Category())->getAllCategories()?>

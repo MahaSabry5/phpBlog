@@ -18,13 +18,13 @@ class Post extends connection
         $conn=connection::DBconnect();
         $sql = "SELECT * FROM posts
                 WHERE id = $id ";
-        $posts = [];
+//        $posts = [];
         // fetch all posts as an associative array called $posts
-        $result = $conn->query($sql)->fetch_assoc() ;
+        $post = $conn->query($sql)->fetch_assoc() ;
 //        while($row = $result->fetch_assoc()){
 //            $posts[]=$row;
 //        }
-        return $result;
+        return $post;
     }
     public function getCatPosts($id){
         $conn=connection::DBconnect();
@@ -49,6 +49,143 @@ class Post extends connection
             $posts[]=$row;
         }
         return $posts;
+    }
+    public function create($request_values){
+//     print_r($_SESSION);die();
+
+//        print_r($request_values);die();
+        global $conn, $title, $slug, $body,$excerpt,$category_id,$errors;
+
+        // receive all input values from the form
+        $user_id=$_SESSION['user']['id'];
+        $title = esc($request_values['title']);
+        $slug = esc($request_values['slug']);
+        $excerpt = esc($request_values['excerpt']);
+        $body = esc($request_values['body']);
+        $category_id = esc($request_values['category_id']);
+
+
+// form validation: ensure that the form is correctly filled
+        if (empty($title)) {  array_push($errors, "Title is required"); }
+        if (empty($slug)) {  array_push($errors, "Slug is required"); }
+        if (empty($excerpt)) { array_push($errors, "Excerpt is required"); }
+        if (empty($body)) { array_push($errors, "Body is required"); }
+        if (empty($category_id)) { array_push($errors, "Category is required"); }
+
+        $check_query = "SELECT * FROM posts WHERE slug='$slug' LIMIT 1";
+        $result = $conn->query($check_query) ;
+
+        $post = $result->fetch_assoc();
+
+        if ($post) { // if user exists
+            if ($post['slug'] === $slug) {
+                array_push($errors, "This slug is taken");
+            }
+        }
+        if (count($errors) == 0) {
+            $query = "INSERT INTO posts (user_id,category_id,slug,title,body, excerpt,created_at, updated_at) 
+					  VALUES($user_id,$category_id,'$slug', '$title', '$body','$excerpt', now(), now())";
+//            print_r($query);die();
+            $conn->query($query) ;
+            // get id of created user
+            $reg_post_id = $conn->insert_id;
+
+//            print_r($reg_post_id);die();
+
+            // put logged in user into session array
+            $_SESSION['post'] = getPostById($reg_post_id);
+//        print_r($_SESSION);die();
+            if ($_SESSION['post']) {
+                $_SESSION['message'] = "Post created succesfully";
+                // redirect to admin area
+                header('location: dashboard.php');
+                exit(0);
+            } else {
+                $_SESSION['message'] = "You are now logged in";
+                // redirect to public area
+                header('location: createPost.php');
+                exit(0);
+            }
+        }
+    }
+    public function edit($id){
+        global $conn, $title, $slug, $body,$excerpt,$category_id, $post_id;
+        $sql = "SELECT * FROM posts WHERE id=$id LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+        $post = mysqli_fetch_assoc($result);
+        // set form values on the form to be updated
+        $post_id = $post['id'];
+        $title = $post['title'];
+        $excerpt =$post['excerpt'];
+        $slug = $post['slug'];
+        $body = $post['body'];
+        $category_id = $post['category_id'];
+
+    }
+    public function update($request_values){
+        global $conn, $title, $slug, $body,$excerpt,$category_id, $post_id,$errors;
+//        print_r($request_values);die();
+        $post_id = $request_values['id'];
+        $title = esc($request_values['title']);
+        $slug = esc($request_values['slug']);
+        $excerpt = esc($request_values['excerpt']);
+        $body = esc($request_values['body']);
+        $category_id = esc($request_values['category_id']);
+
+
+// form validation: ensure that the form is correctly filled
+        if (empty($title)) {
+            array_push($errors, "Title is required");
+        }
+        if (empty($slug)) {
+            array_push($errors, "Slug is required");
+        }
+        if (empty($excerpt)) {
+            array_push($errors, "Excerpt is required");
+        }
+        if (empty($body)) {
+            array_push($errors, "Body is required");
+        }
+        if (empty($category_id)) {
+            array_push($errors, "Category is required");
+        }
+
+//        print_r($post_id);die();
+        if (count($errors) == 0) {
+            $query = "UPDATE posts SET
+                    category_id =$category_id,
+                    slug='$slug',
+                    title='$title',
+                    excerpt='$excerpt',
+                    body='$body',
+                    created_at= now(),
+                    updated_at= now()
+                    WHERE id = $post_id";
+            $res = $conn->query($query);
+
+            if ($res) {
+                $_SESSION['message'] = "Post updated succesfully";
+// redirect to admin area
+                header('location: dashboard.php');
+                exit(0);
+            } else {
+                $_SESSION['message'] = "error in updating";
+// redirect to public area
+                header('location: editPost.php');
+                exit(0);
+            }
+        }
+
+    }
+    public function delete($id){
+        global $conn;
+        $sql = "DELETE FROM posts WHERE id=$id";
+        $result= $conn->query($sql);
+        if ($result) {
+            $_SESSION['message'] = "Post successfully deleted";
+            header("location: dashboard.php");
+            exit(0);
+        }
     }
 
 

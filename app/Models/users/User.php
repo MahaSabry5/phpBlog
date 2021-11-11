@@ -21,8 +21,8 @@ class User extends connection
 
     public function getUserById($id){
         $conn=connection::DBconnect();
-        $sql="SELECT * FROM users WHERE id=
-			(SELECT user_id FROM posts WHERE user_id=$id LIMIT 1)";
+        $sql="SELECT * FROM users WHERE id=$id
+			 LIMIT 1";
 
         // fetch all posts as an associative array called $posts
         if($conn->query($sql)){
@@ -33,5 +33,90 @@ class User extends connection
         }
         return $result;
     }
+    public function edit($id){
+        global $conn, $name,$username,$email,$user_id;
+        $sql = "SELECT * FROM users WHERE id=$id LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+        $user = mysqli_fetch_assoc($result);
+        // set form values on the form to be updated
+        $name = $user['name'];
+        $username = $user['username'];
+        $email = $user['email'];
+        $user_id =$id;
+
+
+    }
+    public function update($request_values){
+        global $conn,$name,$username,$email,$user_id,$errors;
+//        print_r($request_values);die();
+        $user_id = $request_values['id'];
+        $name = esc($request_values['name']);
+        $username = esc($request_values['username']);
+        $email = esc($request_values['email']);
+
+// form validation: ensure that the form is correctly filled
+        if (empty($name)) {
+            array_push($errors, "Name is required");
+        }
+        if (empty($username)) {
+            array_push($errors, "Username is required");
+        }
+        if (empty($email)) {
+            array_push($errors, "Email is required");
+        }
+
+
+//        print_r($post_id);die();
+        if (count($errors) == 0) {
+            $query = "UPDATE users SET
+                    name='$name',
+                    username='$username',
+                    email='$email',                    
+                    email_verified_at= now(),
+                    created_at= now(),
+                    updated_at= now()
+                    WHERE id = $user_id";
+            $res = $conn->query($query);
+
+            if ($res) {
+                $_SESSION['message'] = "User updated succesfully";
+// redirect to admin area
+                header('location: viewUsers.php');
+                exit(0);
+            } else {
+                $_SESSION['message'] = "error in updating";
+// redirect to public area
+                header('location: editUser.php');
+                exit(0);
+            }
+        }
+
+    }
+    public function delete($id){
+        global $conn;
+        $posts=[];
+        $query = "SELECT * FROM POSTS WHERE user_id=$id";
+        $res =$conn->query($query);
+        while($row = $res->fetch_assoc()){
+            $posts[]=$row;
+        }
+        foreach ($posts as $post){
+            $post['user_id'] = 1;
+        }
+
+        $sql = "DELETE FROM users WHERE id=$id";
+        $result= $conn->query($sql);
+        if ($result) {
+            $_SESSION['message'] = "User successfully deleted";
+            header("location: viewUsers.php");
+            exit(0);
+        }
+    }
+
+
+
+
+
+
 
 }

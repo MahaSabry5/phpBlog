@@ -1,12 +1,19 @@
 <?php
-include 'updatePost.php';
+include 'storePost.php';
 require_once("../Models/Category/Category.php");
 require_once("../Models/posts/Post.php");
 $categories = (new Category())->getAllCategories();
 ?>
 <h1 class="text-center text-xl font-bold ">Edit Post</h1>
-<form method="POST" action="updatePost.php" class="mt-10">
-
+<form method="POST" action="editPost.php" class="mt-10">
+    <div class="mb-6 ">
+        <input class="border border-gray-400 p-2 w-full rounded "
+               type="hidden"
+               name="id"
+               id="id"
+               value="<?php echo $post_id; ?>"
+        >
+    </div>
     <div class="mb-6 ">
         <label for="name" class="block mb-2 uppercase font-bold text-xs text-gray-700">
             TITLE
@@ -38,7 +45,7 @@ $categories = (new Category())->getAllCategories();
                type="text"
                name="excerpt"
                id="excerpt"
-               value="<?php echo $excerpt; ?>"
+               value="<?php echo $excerpt ; ?>"
         >
 
     </div>

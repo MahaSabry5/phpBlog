@@ -1,27 +1,22 @@
 <?php
 require_once '../includes/DBconnect.php';
+require_once("../Models/Category/Category.php");
+
 $conn = new connection();
 $conn=$conn->DBconnect();
-$comment ="";
-$title = "";
+$name = "";
 $slug = "";
-$excerpt = "";
-$body = "";
 $category_id = "";
 $errors = array();
-//register new user
 
-if (isset($_POST['publish'])) {
-    (new Post)->create($_POST);
-}
 if (isset($_GET['edit_id'])) {
-    (new Post)->edit($_GET['edit_id']);
+    (new Category)->edit($_GET['edit_id']);
 }
 if (isset($_POST['edit'])) {
-    (new Post)->update($_POST);
+    (new Category)->update($_POST);
 }
-if (isset($_GET['delete-post'])) {
-    (new Post)->delete($_GET['delete-post']);
+if (isset($_GET['delete-category'])) {
+    (new Category)->delete($_GET['delete-category']);
 }
 
 function esc(String $value)

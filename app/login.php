@@ -5,7 +5,7 @@ include('includes/register_login.php');
 ?>
 <section class="px-6 py-8">
     <main class="max-w-lg mx-auto mt-10 bg-gray-100 border border-gray-200 p-6 rounded-xl ">
-        <h1 class="text-center text-xl font-bold ">Register</h1>
+        <h1 class="text-center text-xl font-bold ">Sign In</h1>
         <form method="POST" action="login.php" class="mt-10">
             <div class="mb-6 ">
                 <label for="email" class="block mb-2 uppercase font-bold text-xs text-gray-700">
