@@ -1,10 +1,10 @@
 <?php
 
 
-class Post extends connection
+class Post
 {
-    public function getAllPosts(){
-        $conn=connection::DBconnect();
+    public function all(){
+        global $conn;
         $sql = "SELECT * FROM posts";
         $posts = [];
         // fetch all posts as an associative array called $posts
@@ -15,19 +15,16 @@ class Post extends connection
         return $posts;
     }
     public function getPost($id){
-        $conn=connection::DBconnect();
+        global $conn;
+//        print_r($conn);die();
         $sql = "SELECT * FROM posts
                 WHERE id = $id ";
-//        $posts = [];
         // fetch all posts as an associative array called $posts
         $post = $conn->query($sql)->fetch_assoc() ;
-//        while($row = $result->fetch_assoc()){
-//            $posts[]=$row;
-//        }
         return $post;
     }
     public function getCatPosts($id){
-        $conn=connection::DBconnect();
+        global $conn;
         $sql="SELECT * FROM posts WHERE category_id=
 			(SELECT id FROM categories WHERE id=$id)";
         $posts = [];
@@ -39,7 +36,7 @@ class Post extends connection
         return $posts;
     }
     public function getuserPosts($id){
-        $conn=connection::DBconnect();
+        global $conn;
         $sql="SELECT * FROM posts WHERE user_id=
 			(SELECT id FROM users WHERE id=$id)";
         $posts = [];
@@ -51,11 +48,7 @@ class Post extends connection
         return $posts;
     }
     public function create($request_values){
-//     print_r($_SESSION);die();
-
-//        print_r($request_values);die();
         global $conn, $title, $slug, $body,$excerpt,$category_id,$errors;
-
         // receive all input values from the form
         $user_id=$_SESSION['user']['id'];
         $title = esc($request_values['title']);
@@ -87,13 +80,9 @@ class Post extends connection
 					  VALUES($user_id,$category_id,'$slug', '$title', '$body','$excerpt', now(), now())";
 //            print_r($query);die();
             $conn->query($query) ;
-            // get id of created user
+            // get id of created post
             $reg_post_id = $conn->insert_id;
-
-//            print_r($reg_post_id);die();
-
-            // put logged in user into session array
-            $_SESSION['post'] = getPostById($reg_post_id);
+            $_SESSION['post'] = $this->getPost($reg_post_id);
 //        print_r($_SESSION);die();
             if ($_SESSION['post']) {
                 $_SESSION['message'] = "Post created succesfully";
@@ -124,7 +113,6 @@ class Post extends connection
     }
     public function update($request_values){
         global $conn, $title, $slug, $body,$excerpt,$category_id, $post_id,$errors;
-//        print_r($request_values);die();
         $post_id = $request_values['id'];
         $title = esc($request_values['title']);
         $slug = esc($request_values['slug']);
@@ -150,7 +138,6 @@ class Post extends connection
             array_push($errors, "Category is required");
         }
 
-//        print_r($post_id);die();
         if (count($errors) == 0) {
             $query = "UPDATE posts SET
                     category_id =$category_id,

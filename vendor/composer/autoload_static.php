@@ -6,13 +6,40 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit37b22546a70ca6dc8fa0d294f8b67550
 {
+    public static $files = array (
+        'a5b78c3d748b8fc7f72e5614058d4eaf' => __DIR__ . '/../..' . '/app/admin',
+        '82574858cc28ae5c133a815c0b9fa032' => __DIR__ . '/../..' . '/app/includes',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
+    );
+
     public static $classMap = array (
+        'Category' => __DIR__ . '/../..' . '/app/Models/Category/Category.php',
+        'Comment' => __DIR__ . '/../..' . '/app/Models/Comment/Comment.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Database' => __DIR__ . '/../..' . '/app/config/database.php',
+        'Post' => __DIR__ . '/../..' . '/app/Models/posts/Post.php',
+        'User' => __DIR__ . '/../..' . '/app/Models/users/User.php',
+        'databaseConn' => __DIR__ . '/../..' . '/app/config/databaseConn.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit37b22546a70ca6dc8fa0d294f8b67550::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit37b22546a70ca6dc8fa0d294f8b67550::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit37b22546a70ca6dc8fa0d294f8b67550::$classMap;
 
         }, null, ClassLoader::class);

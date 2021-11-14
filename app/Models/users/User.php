@@ -1,14 +1,9 @@
 <?php
-//require_once ("app/includes/DBconnect.php");
 
-class User extends connection
+class User
 {
-    public function create(){
-
-
-    }
-    public function getAllUsers(){
-        $conn=connection::DBconnect();
+    public function all(){
+        global $conn;
         $sql = "SELECT * FROM users";
         $users = [];
         // fetch all posts as an associative array called $posts
@@ -20,7 +15,7 @@ class User extends connection
     }
 
     public function getUserById($id){
-        $conn=connection::DBconnect();
+        global $conn;
         $sql="SELECT * FROM users WHERE id=$id
 			 LIMIT 1";
 
@@ -48,7 +43,6 @@ class User extends connection
     }
     public function update($request_values){
         global $conn,$name,$username,$email,$user_id,$errors;
-//        print_r($request_values);die();
         $user_id = $request_values['id'];
         $name = esc($request_values['name']);
         $username = esc($request_values['username']);
@@ -65,8 +59,6 @@ class User extends connection
             array_push($errors, "Email is required");
         }
 
-
-//        print_r($post_id);die();
         if (count($errors) == 0) {
             $query = "UPDATE users SET
                     name='$name',
@@ -80,30 +72,21 @@ class User extends connection
 
             if ($res) {
                 $_SESSION['message'] = "User updated succesfully";
-// redirect to admin area
                 header('location: viewUsers.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "error in updating";
-// redirect to public area
                 header('location: editUser.php');
                 exit(0);
             }
         }
-
     }
     public function delete($id){
         global $conn;
-        $posts=[];
-        $query = "SELECT * FROM POSTS WHERE user_id=$id";
-        $res =$conn->query($query);
-        while($row = $res->fetch_assoc()){
-            $posts[]=$row;
-        }
-        foreach ($posts as $post){
-            $post['user_id'] = 1;
-        }
-
+        $query = "UPDATE posts SET
+                    user_id = 1
+                    WHERE user_id = $id";
+        $conn->query($query);
         $sql = "DELETE FROM users WHERE id=$id";
         $result= $conn->query($sql);
         if ($result) {

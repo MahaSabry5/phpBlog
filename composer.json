@@ -1,13 +1,26 @@
 {
-  "autoload": {
-    "classmap": [
-      "app/Models","app/includes","app/config","resources/images"
-    ]
+    "name": "lenovo/php-blog",
+
+    "authors": [
+        {
+            "name": "MahaSabry5",
+            "email": "maha08526@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        },
+        "files": [
+            "resources/views/admin",
+            "app/includes"
 
 
-
-  },
-  "require": {
-    "ext-mysqli": "*"
-  }
+        ],
+        "classmap": [
+            "app/config",
+            "app/Models"
+        ]
+    },
+    "require": {}
 }

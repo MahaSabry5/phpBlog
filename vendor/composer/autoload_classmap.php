@@ -6,5 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Category' => $baseDir . '/app/Models/Category/Category.php',
+    'Comment' => $baseDir . '/app/Models/Comment/Comment.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Database' => $baseDir . '/app/config/database.php',
+    'Post' => $baseDir . '/app/Models/posts/Post.php',
+    'User' => $baseDir . '/app/Models/users/User.php',
+    'databaseConn' => $baseDir . '/app/config/databaseConn.php',
 );

@@ -1,7 +1,6 @@
 <?php
 require_once 'DBconnect.php';
-$conn = new connection();
-$conn=$conn->DBconnect();
+$conn = (new connection)->DBconnect();
 $name = "";
 $username = "";
 $email    = "";

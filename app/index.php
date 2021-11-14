@@ -1,16 +1,16 @@
 <?php
-include ("includes/public_functions.php");
-require_once ("includes/register_login.php");
-include('../resources/navbar.php') ;
-include('../resources/header.php') ;
-require_once ("Models/Category/Category.php");
-require_once ("Models/users/User.php");
-//require 'vendor/autoload.php';
+//include ("includes/public_functions.php");
+require_once("includes/register_login.php");
+include('../resources/navbar.php');
+include('../resources/header.php');
+//require_once ("Models/Category/Category.php");
+//require_once ("Models/users/User.php");
+//require_once ('Models/posts/Post.php');
+require_once 'vendor/autoload.php';
 ?>
 
 <body style="font-family: Open Sans, sans-serif">
-<?php $posts = (new Post)->getAllPosts(); ?>
-
+<?php $posts = (new Post)->all(); ?>
 <div class="lg:grid lg:grid-cols-6">
     <?php if ($posts){
         foreach ($posts as $key => $post):
@@ -38,9 +38,6 @@ require_once ("Models/users/User.php");
             }
         endforeach;
     }?>
-
-
-
 </div>
 </body>
 <?php include('../resources/footer.php') ?>
