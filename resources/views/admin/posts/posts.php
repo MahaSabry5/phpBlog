@@ -2,8 +2,8 @@
 
 <?php
 $page = "posts";
-require_once("../Models/Category/Category.php");
-require_once("../Models/users/User.php");
+require_once __DIR__."/../../../../app/Models/Category/Category.php";
+require_once __DIR__."/../../../../app/Models/users/User.php";
 $posts = (new Post)->all();
 ?>
     <table>

@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/DBconnect.php';
-require_once("Models/Comment/Comment.php");
+require_once __DIR__ .'/../../../app/includes/DBconnect.php';
+require_once __DIR__ .'/../../../app/Models/Comment/Comment.php';
 
 $conn = new connection();
 $conn=$conn->DBconnect();

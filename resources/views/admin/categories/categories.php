@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="../../../../app/includes/tableStyle.css">
 <?php
 $page = "categories";
-require_once("../Models/Category/Category.php");
+require_once __DIR__.'/../../../../app/Models/Category/Category.php';
+
 $categories = (new Category())->all();
 ?>
 <table>

@@ -1,6 +1,6 @@
 <?php
 include 'storeCategory.php';
-require_once("../Models/Category/Category.php");
+require_once __DIR__.'/../../../../app/Models/Category/Category.php';
 $categories = (new Category())->all()?>
 
 <h1 class="text-center text-xl font-bold ">Edit Category</h1>
@@ -42,7 +42,9 @@ $categories = (new Category())->all()?>
         </button>
     </div>
     <div class="text-red-500 text-xs mt-1">
-        <?php include '../includes/errors.php' ?>
+        <?php
+        include_once __DIR__.'/../../../../app/includes/errors.php';
+        ?>
     </div>
 
 </form>

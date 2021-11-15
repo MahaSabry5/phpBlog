@@ -1,16 +1,27 @@
 <?php
-//include ("includes/public_functions.php");
-require_once("includes/register_login.php");
-include('../resources/navbar.php');
-include('../resources/header.php');
-//require_once ("Models/Category/Category.php");
-//require_once ("Models/users/User.php");
-//require_once ('Models/posts/Post.php');
-require_once 'vendor/autoload.php';
+
+//$home_url = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+//echo $home_url;
+
+$logo_url = '../public/images/logo.svg';
+$specialCard = '../public/images/illustration-1.png';
+$postCard='../public/images/illustration-5.png';
+$laryAvatar ='../public/images/lary-avatar.svg';
+$laryLetter='../public/images/lary-newsletter-icon.svg';
+$mailBoxIcon='../public/images/mailbox-icon.svg';
+
+require_once __DIR__ . "/includes/register_login.php";
+require_once __DIR__ . '/../resources/views/components/header.php';
+require_once __DIR__ . '/../app/Models/posts/Post.php';
+require_once __DIR__ . '/../app/Models/users/User.php';
+require_once __DIR__ . '/../app/Models/Category/Category.php';
+include __DIR__ . '/../resources/views/components/navbar.php';
+
 ?>
 
 <body style="font-family: Open Sans, sans-serif">
-<?php $posts = (new Post)->all(); ?>
+<?php $posts = (new Post)->all();
+?>
 <div class="lg:grid lg:grid-cols-6">
     <?php if ($posts){
         foreach ($posts as $key => $post):
@@ -20,19 +31,19 @@ require_once 'vendor/autoload.php';
             $user = (new User)->getUserById($user_id);
             if ($key == 0) {?>
                 <article class="col-span-6">
-                    <?php include('../resources/specialPostCard.php'); ?>
+                    <?php include_once __DIR__ .'/../resources/views/components/specialPostCard.php'; ?>
                 </article>
                 <?php
             } elseif ($key == 1 or $key == 2) {
                 ?>
                 <article class="col-span-3">
-                    <?php include('../resources/postCard.php'); ?>
+                    <?php include_once __DIR__ .'/../resources/views/components/postCard.php'; ?>
                 </article>
                 <?php
             } else {
                 ?>
                 <article class="col-span-2">
-                    <?php include('../resources/postCard.php'); ?>
+                    <?php include_once __DIR__ .'/../resources/views/components/postCard.php';?>
                 </article>
                 <?php
             }
@@ -40,5 +51,5 @@ require_once 'vendor/autoload.php';
     }?>
 </div>
 </body>
-<?php include('../resources/footer.php') ?>
+<?php include_once __DIR__ .'/../resources/views/components/footer.php'; ?>
 

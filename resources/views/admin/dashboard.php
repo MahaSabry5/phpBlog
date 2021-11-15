@@ -1,11 +1,14 @@
 <?php
 $page = "posts";
-include 'dashboradLayout.php';
-include 'posts.php'
+require_once __DIR__ . "dashboradLayout.php";
+require_once __DIR__ . "/posts/posts.php";
+
 ?>
 
         </main>
     </section>
-<?php include('C:\xampp\htdocs\Laravel\phpBlog\resources\footer.php') ?>
+<?php
+require_once __DIR__ . "/../components/footer.php";
+?>
 
 

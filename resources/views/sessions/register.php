@@ -1,7 +1,7 @@
 <?php
-include('../resources/navbar.php');
-include('../resources/header.php');
-include('includes/register_login.php');
+include_once __DIR__ .'/../components/navbar.php';
+include_once __DIR__ .'/../components/header.php';
+include_once __DIR__ .'/../../../app/includes/register_login.php';
 ?>
 <section class="px-6 py-8">
     <main class="max-w-lg mx-auto mt-10 bg-gray-100 border border-gray-200 p-6 rounded-xl ">
@@ -62,7 +62,7 @@ include('includes/register_login.php');
                 </button>
             </div>
             <div class="text-red-500 text-xs mt-1">
-                <?php include 'includes/errors.php' ?>
+                <?php include_once __DIR__ .'/../../../app/includes/errors.php' ?>
             </div>
 
         </form>
@@ -70,4 +70,5 @@ include('includes/register_login.php');
     </main>
 </section>
 
-<?php include('../resources/footer.php') ?>
+<?php include_once __DIR__ .'/../components/footer.php';
+?>

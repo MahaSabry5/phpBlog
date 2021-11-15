@@ -78,7 +78,6 @@ class Post
         if (count($errors) == 0) {
             $query = "INSERT INTO posts (user_id,category_id,slug,title,body, excerpt,created_at, updated_at) 
 					  VALUES($user_id,$category_id,'$slug', '$title', '$body','$excerpt', now(), now())";
-//            print_r($query);die();
             $conn->query($query) ;
             // get id of created post
             $reg_post_id = $conn->insert_id;
@@ -87,12 +86,12 @@ class Post
             if ($_SESSION['post']) {
                 $_SESSION['message'] = "Post created succesfully";
                 // redirect to admin area
-                header('location: dashboard.php');
+                header('location: /../../../../resources/views/admin/dashboard.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "You are now logged in";
                 // redirect to public area
-                header('location: createPost.php');
+                header('location: /../../../../resources/views/admin/posts/createPost.php');
                 exit(0);
             }
         }
@@ -153,12 +152,12 @@ class Post
             if ($res) {
                 $_SESSION['message'] = "Post updated succesfully";
 // redirect to admin area
-                header('location: dashboard.php');
+                header('location:  /../../../../resources/views/admin/dashboard.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "error in updating";
 // redirect to public area
-                header('location: editPost.php');
+                header('location:  /../../../../resources/views/admin/posts/editPost.php');
                 exit(0);
             }
         }
@@ -170,7 +169,7 @@ class Post
         $result= $conn->query($sql);
         if ($result) {
             $_SESSION['message'] = "Post successfully deleted";
-            header("location: dashboard.php");
+            header("location: /../../../../resources/views/admin/dashboard.php");
             exit(0);
         }
     }

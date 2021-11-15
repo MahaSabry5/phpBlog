@@ -1,6 +1,7 @@
 <?php
-require_once '../includes/DBconnect.php';
-require_once("../Models/Category/Category.php");
+
+require_once __DIR__.'/../../../../app/includes/DBconnect.php';
+require_once __DIR__.'/../../../../app/Models/Category/Category.php';
 
 $conn = (new connection)->DBconnect();
 $name = "";

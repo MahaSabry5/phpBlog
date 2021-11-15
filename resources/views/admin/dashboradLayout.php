@@ -1,10 +1,10 @@
 <?php
-require_once '../includes/DBconnect.php';
-include('C:\xampp\htdocs\Laravel\phpBlog\resources\navbar.php');
-include('C:\xampp\htdocs\Laravel\phpBlog\resources\header.php');
-require_once('../Models/Category/Category.php');
-require_once('../Models/users/User.php');
-require_once('../Models/posts/Post.php');
+require_once __DIR__ . "/../../../app/includes/DBconnect.php";
+require_once __DIR__ . '/../../views/components/header.php';
+include __DIR__ . '/../../views/components/navbar.php';
+require_once __DIR__ . '/../../../app/Models/posts/Post.php';
+require_once __DIR__ . '/../../../app/Models/users/User.php';
+require_once __DIR__ . '/../../../app/Models/Category/Category.php';
 $conn = (new connection)->DBconnect();
 
 ?>
