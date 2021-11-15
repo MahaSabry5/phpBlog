@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\posts\Post;
+
 require_once __DIR__. '/../../../../app/includes/DBconnect.php';
 $conn = (new connection)->DBconnect();
 $comment ="";

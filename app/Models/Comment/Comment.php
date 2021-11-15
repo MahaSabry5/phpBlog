@@ -1,10 +1,13 @@
 <?php
+namespace App\Models\Comment;
 
-class Comment
+use App\Models\Model;
+
+class Comment extends Model
 {
     public function all($id)
     {
-        global $conn;
+        $conn = $this->connection;
         $sql = "SELECT * FROM comments WHERE post_id = $id";
         $comments = [];
         // fetch all posts as an associative array called $posts
@@ -19,7 +22,9 @@ class Comment
 
     public function store($request_values)
     {
-        global $conn, $body, $errors;
+        global $body, $errors;
+        $conn = $this->connection;
+
         // receive all input values from the form
         $user_id = $_SESSION['user']['id'];
         $post_id = $_GET['id'];
@@ -47,7 +52,7 @@ class Comment
 
     public function delete($id)
     {
-        global $conn;
+        $conn = $this->connection;
         $sql = "DELETE FROM comments WHERE id=$id";
         $result = $conn->query($sql);
         if ($result) {

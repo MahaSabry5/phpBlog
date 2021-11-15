@@ -1,17 +1,28 @@
 <?php
-require_once __DIR__ .'/../../../app/includes/DBconnect.php';
-require_once __DIR__ .'/../../../app/Models/Category/Category.php';
-require_once __DIR__ .'/../../../app/Models/posts/Post.php';
-require_once __DIR__ .'/../../../app/Models/users/User.php';
-require_once __DIR__ .'/../../../app/Models/Comment/Comment.php';
-include_once __DIR__ .'/../components/navbar.php';
-include_once __DIR__ .'/../components/header.php';
+
+use App\Models\Category\Category;
+use App\Models\Comment\Comment;
+use App\Models\users\User;
+$logo_url = '../../../public/images/logo.svg';
+$specialCard = '../../../public/images/illustration-1.png';
+$postCard='../../../public/images/illustration-5.png';
+$laryAvatar ='../../../public/images/lary-avatar.svg';
+$laryLetter='../../../public/images/lary-newsletter-icon.svg';
+$mailBoxIcon='../../../public/images/mailbox-icon.svg';
+
+require_once __DIR__ . '/../../../app/includes/DBconnect.php';
+require_once __DIR__ . '/../../../app/Models/Category/Category.php';
+require_once __DIR__ . '/../../../app/Models/posts/Post.php';
+require_once __DIR__ . '/../../../app/Models/users/User.php';
+require_once __DIR__ . '/../../../app/Models/Comment/Comment.php';
+include_once __DIR__ . '/../components/navbar.php';
+include_once __DIR__ . '/../components/header.php';
 
 $conn = (new connection)->DBconnect();
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $post = (new Post)->getPost($id);
+    $post = (new \App\Models\posts\Post())->getPost($id);
     $comments = (new Comment)->all($id);
 }
 ?>
@@ -26,7 +37,7 @@ if (isset($_GET['id'])) {
 
     ?>
     <article class="col-span-6">
-        <?php include_once __DIR__ .'/../components/specialPostCard.php' ?>
+        <?php include_once __DIR__ . '/../../../resources/views/components/specialPostCard.php' ?>
 
     </article>
     <section class="col-span-8 col-start-4 mr-10 mt-10 space-y-6">
@@ -34,21 +45,20 @@ if (isset($_GET['id'])) {
         <?php
         if ($_SESSION) {
             if ($_SESSION['user']['role'] == 'user') {
-                include_once __DIR__ .'/../components/commentForm.php';
+                include_once __DIR__ . '/../../../resources/views/components/commentForm.php';
             }
             if ($comments) {
                 foreach ($comments as $comment) {
-                    $author_id=$comment['user_id'];
-                    $author=(new User)->getUserById($author_id);
-                    include_once __DIR__ .'/../components/commentLayout.php';
+                    $author_id = $comment['user_id'];
+                    $author = (new User)->getUserById($author_id);
+                    include_once __DIR__ . '/../../../resources/views/components/commentLayout.php';
                 }
             }
-        }
-        else{
+        } else {
             if ($comments) {
                 foreach ($comments as $comment) {
-                    $author=(new User)->getUserById($comment['user_id']);
-                    include_once __DIR__ .'/../components/commentLayout.php';
+                    $author = (new User)->getUserById($comment['user_id']);
+                    include_once __DIR__ . '/../../../resources/views/components/commentLayout.php';
                 }
             }
         }
@@ -58,4 +68,4 @@ if (isset($_GET['id'])) {
     </section>
 </div>
 </body>
-<?php include_once __DIR__ .'/../components/footer.php'?>
+<?php include_once __DIR__ . '/../../../resources/views/components/footer.php' ?>

@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Comment\Comment;
+
 require_once __DIR__ .'/../../../app/includes/DBconnect.php';
 require_once __DIR__ .'/../../../app/Models/Comment/Comment.php';
 

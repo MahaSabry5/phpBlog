@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="../../../../app/includes/tableStyle.css">
 <?php
+
+use App\Models\users\User;
+
 $page = "users";
-require_once("../Models/users/User.php");
+//require_once("../Models/users/User.php");
 $users = (new User())->all();
 ?>
 <table>

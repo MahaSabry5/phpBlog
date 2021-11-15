@@ -48,12 +48,12 @@ if (isset($_POST['reg_user'])) {
         if ($_SESSION['user']['role'] == "admin") {
             $_SESSION['message'] = "You are now logged in";
             // redirect to admin area
-            header('location: /../../resources/views/admin/dashboard.php');
+            header('location: ../../../resources/views/admin/dashboard.php');
             exit(0);
         } else {
             $_SESSION['message'] = "You are now logged in";
             // redirect to public area
-            header('location: /../index.php');
+            header('location: ../../../app/index.php');
             exit(0);
         }
     }
@@ -73,7 +73,6 @@ if (isset($_POST['login_btn'])) {
         if (mysqli_num_rows($result) > 0) {
             // get id of created user
             $reg_user_id = $result->fetch_assoc()['id'];
-
             // put logged in user into session array
             $_SESSION['user'] = getUserById($reg_user_id);
             //print_r($_SESSION['user']);die();
@@ -82,12 +81,12 @@ if (isset($_POST['login_btn'])) {
             if ($_SESSION['user']['role'] == "admin") {
                 $_SESSION['message'] = "You are now logged in";
                 // redirect to admin area
-                header('location: /../../resources/views/admin/dashboard.php');
+                header('location: ../../../resources/views/admin/dashboard.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "You are now logged in";
                 // redirect to public area
-                header('location: /../index.php');
+                header('location:../../../app/index.php');
                 exit(0);
             }
         } else {

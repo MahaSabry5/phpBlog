@@ -1,6 +1,11 @@
-<link rel="stylesheet" href="../../../../app/includes/tableStyle.css">
+<link rel="stylesheet" href="../../../app/includes/tableStyle.css">
 
 <?php
+
+use App\Models\Category\Category;
+use App\Models\posts\Post;
+use App\Models\users\User;
+
 $page = "posts";
 require_once __DIR__."/../../../../app/Models/Category/Category.php";
 require_once __DIR__."/../../../../app/Models/users/User.php";

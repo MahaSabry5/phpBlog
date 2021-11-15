@@ -1,9 +1,9 @@
 <?php
 $page = "users";
-include 'dashboradLayout.php';
+include __DIR__.'/../../../../resources/views/admin/dashboradLayout.php';
 include 'editUserForm.php'; ?>
 </main>
 </section>
-<?php include('C:\xampp\htdocs\Laravel\phpBlog\resources\footer.php') ?>
+<?php include_once __DIR__.'/../../../../resources/views/components/footer.php'?>
 
 

@@ -1,5 +1,8 @@
 <link rel="stylesheet" href="../../../../app/includes/tableStyle.css">
 <?php
+
+use App\Models\Category\Category;
+
 $page = "categories";
 require_once __DIR__.'/../../../../app/Models/Category/Category.php';
 

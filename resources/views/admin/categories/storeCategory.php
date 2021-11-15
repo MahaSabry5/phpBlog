@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category\Category;
+
 require_once __DIR__.'/../../../../app/includes/DBconnect.php';
 require_once __DIR__.'/../../../../app/Models/Category/Category.php';
 

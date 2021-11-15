@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Category\Category;
+
 include 'storeCategory.php';
 require_once __DIR__.'/../../../../app/Models/Category/Category.php';
 $categories = (new Category())->all()?>

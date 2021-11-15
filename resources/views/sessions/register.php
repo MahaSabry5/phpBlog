@@ -1,4 +1,11 @@
 <?php
+$logo_url = '../../../public/images/logo.svg';
+$specialCard = '../../../public/images/illustration-1.png';
+$postCard='../../../public/images/illustration-5.png';
+$laryAvatar ='../../../public/images/lary-avatar.svg';
+$laryLetter='../../../public/images/lary-newsletter-icon.svg';
+$mailBoxIcon='../../../public/images/mailbox-icon.svg';
+
 include_once __DIR__ .'/../components/navbar.php';
 include_once __DIR__ .'/../components/header.php';
 include_once __DIR__ .'/../../../app/includes/register_login.php';

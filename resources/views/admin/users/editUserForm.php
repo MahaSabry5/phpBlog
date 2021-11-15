@@ -51,7 +51,7 @@ include 'storeUser.php';
         </button>
     </div>
     <div class="text-red-500 text-xs mt-1">
-        <?php include '../includes/errors.php' ?>
+        <?php include __DIR__. '/../../../../app/includes/errors.php' ?>
     </div>
 
 </form>

@@ -1,10 +1,16 @@
 <?php
 
+namespace App\Models\posts;
 
-class Post
+use App\Models\Model;
+
+require_once __DIR__ . '/../Model.php';
+
+class Post extends Model
 {
     public function all(){
-        global $conn;
+//        global $conn;
+        $conn = $this->connection;
         $sql = "SELECT * FROM posts";
         $posts = [];
         // fetch all posts as an associative array called $posts
@@ -15,8 +21,8 @@ class Post
         return $posts;
     }
     public function getPost($id){
-        global $conn;
-//        print_r($conn);die();
+//        global $conn;
+        $conn = $this->connection;
         $sql = "SELECT * FROM posts
                 WHERE id = $id ";
         // fetch all posts as an associative array called $posts
@@ -24,7 +30,7 @@ class Post
         return $post;
     }
     public function getCatPosts($id){
-        global $conn;
+        $conn = $this->connection;
         $sql="SELECT * FROM posts WHERE category_id=
 			(SELECT id FROM categories WHERE id=$id)";
         $posts = [];
@@ -36,7 +42,7 @@ class Post
         return $posts;
     }
     public function getuserPosts($id){
-        global $conn;
+        $conn = $this->connection;
         $sql="SELECT * FROM posts WHERE user_id=
 			(SELECT id FROM users WHERE id=$id)";
         $posts = [];
@@ -48,7 +54,8 @@ class Post
         return $posts;
     }
     public function create($request_values){
-        global $conn, $title, $slug, $body,$excerpt,$category_id,$errors;
+        global $title, $slug, $body,$excerpt,$category_id,$errors;
+        $conn = $this->connection;
         // receive all input values from the form
         $user_id=$_SESSION['user']['id'];
         $title = esc($request_values['title']);
@@ -97,7 +104,8 @@ class Post
         }
     }
     public function edit($id){
-        global $conn, $title, $slug, $body,$excerpt,$category_id, $post_id;
+        global $title, $slug, $body,$excerpt,$category_id, $post_id;
+        $conn = $this->connection;
         $sql = "SELECT * FROM posts WHERE id=$id LIMIT 1";
         $result = mysqli_query($conn, $sql);
         $post = mysqli_fetch_assoc($result);
@@ -111,7 +119,8 @@ class Post
 
     }
     public function update($request_values){
-        global $conn, $title, $slug, $body,$excerpt,$category_id, $post_id,$errors;
+        global $title, $slug, $body,$excerpt,$category_id, $post_id,$errors;
+        $conn = $this->connection;
         $post_id = $request_values['id'];
         $title = esc($request_values['title']);
         $slug = esc($request_values['slug']);
@@ -164,7 +173,7 @@ class Post
 
     }
     public function delete($id){
-        global $conn;
+        $conn = $this->connection;
         $sql = "DELETE FROM posts WHERE id=$id";
         $result= $conn->query($sql);
         if ($result) {

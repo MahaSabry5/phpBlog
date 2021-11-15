@@ -1,7 +1,13 @@
 <?php
+$logo_url = '../../../public/images/logo.svg';
+$specialCard = '../../../public/images/illustration-1.png';
+$postCard='../../../public/images/illustration-5.png';
+$laryAvatar ='../../../public/images/lary-avatar.svg';
+$laryLetter='../../../public/images/lary-newsletter-icon.svg';
+$mailBoxIcon='../../../public/images/mailbox-icon.svg';
 require_once __DIR__ . "/../../../app/includes/DBconnect.php";
-require_once __DIR__ . '/../../views/components/header.php';
 include __DIR__ . '/../../views/components/navbar.php';
+require_once __DIR__ . '/../../views/components/header.php';
 require_once __DIR__ . '/../../../app/Models/posts/Post.php';
 require_once __DIR__ . '/../../../app/Models/users/User.php';
 require_once __DIR__ . '/../../../app/Models/Category/Category.php';

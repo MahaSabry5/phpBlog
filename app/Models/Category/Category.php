@@ -1,10 +1,14 @@
 <?php
+namespace App\Models\Category;
 
-class Category
+use App\Models\Model;
+require_once __DIR__ . '/../Model.php';
+
+class Category extends Model
 
 {
     public function all(){
-        global $conn;
+        $conn = $this->connection;
         $sql = "SELECT * FROM categories";
         $categories = [];
         // fetch all posts as an associative array called $posts
@@ -16,7 +20,7 @@ class Category
     }
 
     public function getCategoryById($id){
-        global $conn;
+        $conn = $this->connection;
         $sql="SELECT * FROM categories WHERE id=
 			(SELECT category_id FROM posts WHERE category_id=$id LIMIT 1)";
         // fetch all posts as an associative array called $posts
@@ -30,7 +34,8 @@ class Category
         return $result;
     }
     public function edit($id){
-        global $conn, $name, $slug,$category_id;
+        global  $name, $slug,$category_id;
+        $conn = $this->connection;
         $sql = "SELECT * FROM categories WHERE id=$id LIMIT 1";
         $result = mysqli_query($conn, $sql);
         $category = mysqli_fetch_assoc($result);
@@ -40,7 +45,8 @@ class Category
         $category_id = $category['id'];
     }
     public function update($request_values){
-        global $conn, $name, $slug,$category_id,$errors;
+        global $name, $slug,$category_id,$errors;
+        $conn = $this->connection;
         $category_id = $request_values['id'];
         $name = esc($request_values['name']);
         $slug = esc($request_values['slug']);
@@ -76,7 +82,7 @@ class Category
 
     }
     public function delete($id){
-        global $conn;
+        $conn = $this->connection;
         $query = "UPDATE posts SET
                     category_id = 1
                     WHERE category_id = $id";

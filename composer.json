@@ -22,5 +22,7 @@
             "app/Models"
         ]
     },
-    "require": {}
+    "require": {
+      "ext-mysqli": "*"
+    }
 }

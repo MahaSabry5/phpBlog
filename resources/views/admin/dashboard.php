@@ -1,7 +1,7 @@
 <?php
 $page = "posts";
-require_once __DIR__ . "dashboradLayout.php";
-require_once __DIR__ . "/posts/posts.php";
+require_once __DIR__ . "/../../../resources/views/admin/dashboradLayout.php";
+require_once __DIR__ . "../../../resources/views/posts/posts.php";
 
 ?>
 

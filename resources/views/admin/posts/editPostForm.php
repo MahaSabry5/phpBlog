@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Category\Category;
+
 include 'storePost.php';
 require_once __DIR__."/../../../../app/Models/Category/Category.php";
 require_once __DIR__."/../../../../app/Models/posts/Post.php";

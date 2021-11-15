@@ -1,9 +1,12 @@
 <?php
+namespace App\Models\users;
 
-class User
+use App\Models\Model;
+
+class User extends Model
 {
     public function all(){
-        global $conn;
+        $conn = $this->connection;
         $sql = "SELECT * FROM users";
         $users = [];
         // fetch all posts as an associative array called $posts
@@ -15,7 +18,7 @@ class User
     }
 
     public function getUserById($id){
-        global $conn;
+        $conn = $this->connection;
         $sql="SELECT * FROM users WHERE id=$id
 			 LIMIT 1";
 
@@ -29,7 +32,9 @@ class User
         return $result;
     }
     public function edit($id){
-        global $conn, $name,$username,$email,$user_id;
+        global $name,$username,$email,$user_id;
+        $conn = $this->connection;
+
         $sql = "SELECT * FROM users WHERE id=$id LIMIT 1";
         $result = mysqli_query($conn, $sql);
         $user = mysqli_fetch_assoc($result);
@@ -42,7 +47,9 @@ class User
 
     }
     public function update($request_values){
-        global $conn,$name,$username,$email,$user_id,$errors;
+        global $name,$username,$email,$user_id,$errors;
+        $conn = $this->connection;
+
         $user_id = $request_values['id'];
         $name = esc($request_values['name']);
         $username = esc($request_values['username']);
@@ -82,7 +89,7 @@ class User
         }
     }
     public function delete($id){
-        global $conn;
+        $conn = $this->connection;
         $query = "UPDATE posts SET
                     user_id = 1
                     WHERE user_id = $id";
