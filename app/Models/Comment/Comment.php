@@ -39,7 +39,7 @@ class Comment
             if ($_SESSION['comment']) {
                 $_SESSION['message'] = "Comment created succesfully";
                 // redirect to admin area
-                header('location: index.php');
+                header('location: /../../index.php');
                 exit(0);
             }
         }
@@ -52,7 +52,7 @@ class Comment
         $result = $conn->query($sql);
         if ($result) {
             $_SESSION['message'] = "Comment successfully deleted";
-            header("location: index.php");
+            header("location: /../../index.php");
             exit(0);
         }
     }

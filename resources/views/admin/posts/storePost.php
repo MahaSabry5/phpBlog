@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/DBconnect.php';
+require_once __DIR__. '/../../../../app/includes/DBconnect.php';
 $conn = (new connection)->DBconnect();
 $comment ="";
 $title = "";

@@ -1,9 +1,11 @@
 <?php
 $page = "posts";
-include 'dashboradLayout.php';
-include 'editPostForm.php'; ?>
+include_once __DIR__.'/../dashboradLayout.php';
+include_once 'editPostForm.php'; ?>
     </main>
 </section>
-<?php include('C:\xampp\htdocs\Laravel\phpBlog\resources\footer.php') ?>
+<?php
+    include_once __DIR__ .'/../../components/footer.php';
+?>
 
 

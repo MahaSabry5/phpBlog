@@ -1,13 +1,10 @@
 <?php
-//require_once ("app/includes/DBconnect.php");
-
 
 class Category
 
 {
     public function all(){
         global $conn;
-//        $conn=connection::DBconnect();
         $sql = "SELECT * FROM categories";
         $categories = [];
         // fetch all posts as an associative array called $posts
@@ -67,12 +64,12 @@ class Category
             if ($res) {
                 $_SESSION['message'] = "Category updated succesfully";
 // redirect to admin area
-                header('location: viewCategories.php');
+                header('location:/../resources/views/admin/categories/viewCategories.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "error in updating";
 // redirect to public area
-                header('location: editCategory.php');
+                header('location: /../resources/views/admin/categories/editCategories.php');
                 exit(0);
             }
         }
@@ -89,7 +86,7 @@ class Category
         $result= $conn->query($sql);
         if ($result) {
             $_SESSION['message'] = "Category successfully deleted";
-            header("location: viewCategories.php");
+            header("location: /../resources/views/admin/categories/viewCategories.php");
             exit(0);
         }
     }

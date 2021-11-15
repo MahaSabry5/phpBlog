@@ -1,12 +1,11 @@
 <?php
-//include("includes/public_functions.php");
-require_once 'includes/DBconnect.php';
-include('../resources/navbar.php');
-include('../resources/header.php');
-require_once('Models/posts/Post.php');
-require_once("Models/Category/Category.php");
-require_once("Models/users/User.php");
-//require 'vendor/autoload.php';
+require_once __DIR__ .'/../../../app/includes/DBconnect.php';
+require_once __DIR__ .'/../../../app/Models/Category/Category.php';
+require_once __DIR__ .'/../../../app/Models/posts/Post.php';
+require_once __DIR__ .'/../../../app/Models/users/User.php';
+include_once __DIR__ .'/../components/navbar.php';
+include_once __DIR__ .'/../components/header.php';
+
 $conn = (new connection)->DBconnect();
 
 if (isset($_GET['category'])) {
@@ -34,7 +33,8 @@ if (isset($_GET['category'])) {
 
             ?>
             <article class="col-span-6">
-                <?php include('../resources/specialPostCard.php'); ?>
+                <?php include_once __DIR__ .'/../components/specialPostCard.php';
+                ?>
             </article>
 
         <?php endforeach;
@@ -43,5 +43,5 @@ if (isset($_GET['category'])) {
 
 </div>
 </body>
-<?php include('../resources/footer.php') ?>
+<?php include_once __DIR__ .'/../components/footer.php'?>
 

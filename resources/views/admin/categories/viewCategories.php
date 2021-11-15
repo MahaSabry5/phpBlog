@@ -1,10 +1,12 @@
 <?php
 $page = "categories";
-include 'dashboradLayout.php';
+include_once  __DIR__.'/../dashboradLayout.php';
 include 'categories.php' ?>
 
     </main>
 </section>
-<?php include('C:\xampp\htdocs\Laravel\phpBlog\resources\footer.php') ?>
+<?php
+include_once __DIR__ .'/../../components/footer.php';
+?>
 
 

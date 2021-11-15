@@ -72,11 +72,11 @@ class User
 
             if ($res) {
                 $_SESSION['message'] = "User updated succesfully";
-                header('location: viewUsers.php');
+                header('location: /../resources/views/admin/users/viewUsers.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "error in updating";
-                header('location: editUser.php');
+                header('location: /../resources/views/admin/users/editUser.php');
                 exit(0);
             }
         }
@@ -91,7 +91,7 @@ class User
         $result= $conn->query($sql);
         if ($result) {
             $_SESSION['message'] = "User successfully deleted";
-            header("location: viewUsers.php");
+            header("location: /../resources/views/admin/users/viewUsers.php");
             exit(0);
         }
     }
