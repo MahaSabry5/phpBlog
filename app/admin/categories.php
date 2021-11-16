@@ -1,8 +1,11 @@
 <link rel="stylesheet" href="../includes/tableStyle.css">
 <?php
+
+use App\Models\Category\Category;
+
 $page = "categories";
 require_once("../Models/Category/Category.php");
-$categories = (new Category())->getAllCategories();
+$categories = (new Category())->all();
 ?>
 <table>
     <thead>
@@ -13,7 +16,8 @@ $categories = (new Category())->getAllCategories();
     </thead>
     <tbody>
     <?php if ($categories) {
-        foreach ($categories as $key => $category): ?>
+        foreach ($categories as $key => $category):
+            if($key == 0 ){continue;}?>
             <tr class="firstRow">
                 <td class="country_name-cell"> <?php echo($category["name"]); ?> </td>
                 <td class="code-cell"><?php echo($category["slug"]); ?></td>

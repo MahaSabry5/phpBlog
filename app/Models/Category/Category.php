@@ -1,12 +1,14 @@
 <?php
-//require_once ("app/includes/DBconnect.php");
+namespace App\Models\Category;
 
+use App\Models\Model;
+require_once __DIR__ . '/../Model.php';
 
-class Category extends connection
+class Category extends Model
 
 {
-    public function getAllCategories(){
-        $conn=connection::DBconnect();
+    public function all(){
+        $conn = $this->connection;
         $sql = "SELECT * FROM categories";
         $categories = [];
         // fetch all posts as an associative array called $posts
@@ -18,7 +20,7 @@ class Category extends connection
     }
 
     public function getCategoryById($id){
-        $conn=connection::DBconnect();
+        $conn = $this->connection;
         $sql="SELECT * FROM categories WHERE id=
 			(SELECT category_id FROM posts WHERE category_id=$id LIMIT 1)";
         // fetch all posts as an associative array called $posts
@@ -32,7 +34,8 @@ class Category extends connection
         return $result;
     }
     public function edit($id){
-        global $conn, $name, $slug,$category_id;
+        global  $name, $slug,$category_id;
+        $conn = $this->connection;
         $sql = "SELECT * FROM categories WHERE id=$id LIMIT 1";
         $result = mysqli_query($conn, $sql);
         $category = mysqli_fetch_assoc($result);
@@ -42,8 +45,8 @@ class Category extends connection
         $category_id = $category['id'];
     }
     public function update($request_values){
-        global $conn, $name, $slug,$category_id,$errors;
-//        print_r($request_values);die();
+        global $name, $slug,$category_id,$errors;
+        $conn = $this->connection;
         $category_id = $request_values['id'];
         $name = esc($request_values['name']);
         $slug = esc($request_values['slug']);
@@ -55,8 +58,6 @@ class Category extends connection
         if (empty($slug)) {
             array_push($errors, "Slug is required");
         }
-
-//        print_r($post_id);die();
         if (count($errors) == 0) {
             $query = "UPDATE categories SET
                     name='$name',
@@ -64,39 +65,28 @@ class Category extends connection
                     created_at= now(),
                     updated_at= now()
                     WHERE id = $category_id";
-//            print_r($query);die();
             $res = $conn->query($query);
 
             if ($res) {
                 $_SESSION['message'] = "Category updated succesfully";
 // redirect to admin area
-                header('location: viewCategories.php');
+                header('location:viewCategories.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "error in updating";
 // redirect to public area
-                header('location: editCategory.php');
+                header('location: editCategories.php');
                 exit(0);
             }
         }
 
     }
     public function delete($id){
-        global $conn;
-        $posts=[];
-        $query = "SELECT * FROM POSTS WHERE category_id=$id";
-//        print_r($query);die();
-        $res =$conn->query($query);
-        while($row = $res->fetch_assoc()){
-            $posts[]=$row;
-        }
-//        print_r($posts['category_id']);die();
-        foreach ($posts as $post){
-            $post['category_id'] = 1;
-//            $post ->save();
-//            print_r($post['category_id']);die();
-
-        }
+        $conn = $this->connection;
+        $query = "UPDATE posts SET
+                    category_id = 1
+                    WHERE category_id = $id";
+        $conn->query($query);
 
         $sql = "DELETE FROM categories WHERE id=$id";
         $result= $conn->query($sql);

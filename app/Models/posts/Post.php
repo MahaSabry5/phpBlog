@@ -1,10 +1,16 @@
 <?php
 
+namespace App\Models\posts;
 
-class Post extends connection
+use App\Models\Model;
+
+require_once __DIR__ . '/../Model.php';
+
+class Post extends Model
 {
-    public function getAllPosts(){
-        $conn=connection::DBconnect();
+    public function all(){
+//        global $conn;
+        $conn = $this->connection;
         $sql = "SELECT * FROM posts";
         $posts = [];
         // fetch all posts as an associative array called $posts
@@ -15,19 +21,16 @@ class Post extends connection
         return $posts;
     }
     public function getPost($id){
-        $conn=connection::DBconnect();
+//        global $conn;
+        $conn = $this->connection;
         $sql = "SELECT * FROM posts
                 WHERE id = $id ";
-//        $posts = [];
         // fetch all posts as an associative array called $posts
         $post = $conn->query($sql)->fetch_assoc() ;
-//        while($row = $result->fetch_assoc()){
-//            $posts[]=$row;
-//        }
         return $post;
     }
     public function getCatPosts($id){
-        $conn=connection::DBconnect();
+        $conn = $this->connection;
         $sql="SELECT * FROM posts WHERE category_id=
 			(SELECT id FROM categories WHERE id=$id)";
         $posts = [];
@@ -39,7 +42,7 @@ class Post extends connection
         return $posts;
     }
     public function getuserPosts($id){
-        $conn=connection::DBconnect();
+        $conn = $this->connection;
         $sql="SELECT * FROM posts WHERE user_id=
 			(SELECT id FROM users WHERE id=$id)";
         $posts = [];
@@ -51,11 +54,8 @@ class Post extends connection
         return $posts;
     }
     public function create($request_values){
-//     print_r($_SESSION);die();
-
-//        print_r($request_values);die();
-        global $conn, $title, $slug, $body,$excerpt,$category_id,$errors;
-
+        global $title, $slug, $body,$excerpt,$category_id,$errors;
+        $conn = $this->connection;
         // receive all input values from the form
         $user_id=$_SESSION['user']['id'];
         $title = esc($request_values['title']);
@@ -85,15 +85,10 @@ class Post extends connection
         if (count($errors) == 0) {
             $query = "INSERT INTO posts (user_id,category_id,slug,title,body, excerpt,created_at, updated_at) 
 					  VALUES($user_id,$category_id,'$slug', '$title', '$body','$excerpt', now(), now())";
-//            print_r($query);die();
             $conn->query($query) ;
-            // get id of created user
+            // get id of created post
             $reg_post_id = $conn->insert_id;
-
-//            print_r($reg_post_id);die();
-
-            // put logged in user into session array
-            $_SESSION['post'] = getPostById($reg_post_id);
+            $_SESSION['post'] = $this->getPost($reg_post_id);
 //        print_r($_SESSION);die();
             if ($_SESSION['post']) {
                 $_SESSION['message'] = "Post created succesfully";
@@ -109,7 +104,8 @@ class Post extends connection
         }
     }
     public function edit($id){
-        global $conn, $title, $slug, $body,$excerpt,$category_id, $post_id;
+        global $title, $slug, $body,$excerpt,$category_id, $post_id;
+        $conn = $this->connection;
         $sql = "SELECT * FROM posts WHERE id=$id LIMIT 1";
         $result = mysqli_query($conn, $sql);
         $post = mysqli_fetch_assoc($result);
@@ -123,8 +119,8 @@ class Post extends connection
 
     }
     public function update($request_values){
-        global $conn, $title, $slug, $body,$excerpt,$category_id, $post_id,$errors;
-//        print_r($request_values);die();
+        global $title, $slug, $body,$excerpt,$category_id, $post_id,$errors;
+        $conn = $this->connection;
         $post_id = $request_values['id'];
         $title = esc($request_values['title']);
         $slug = esc($request_values['slug']);
@@ -150,7 +146,6 @@ class Post extends connection
             array_push($errors, "Category is required");
         }
 
-//        print_r($post_id);die();
         if (count($errors) == 0) {
             $query = "UPDATE posts SET
                     category_id =$category_id,
@@ -166,7 +161,7 @@ class Post extends connection
             if ($res) {
                 $_SESSION['message'] = "Post updated succesfully";
 // redirect to admin area
-                header('location: dashboard.php');
+                header('location:  dashboard.php');
                 exit(0);
             } else {
                 $_SESSION['message'] = "error in updating";
@@ -178,7 +173,7 @@ class Post extends connection
 
     }
     public function delete($id){
-        global $conn;
+        $conn = $this->connection;
         $sql = "DELETE FROM posts WHERE id=$id";
         $result= $conn->query($sql);
         if ($result) {

@@ -1,6 +1,9 @@
 <?php
+
+use App\Models\Comment\Comment;
+
 require_once 'includes/DBconnect.php';
-require_once("Models/Comment/Comment.php");
+require_once("../app/Models/Comment/Comment.php");
 
 $conn = new connection();
 $conn=$conn->DBconnect();
@@ -9,6 +12,9 @@ $errors = array();
 
 if (isset($_GET['id'])) {
     (new Comment)->store($_POST);
+}
+if (isset($_GET['delete-comment'])) {
+    (new Comment)->delete($_GET['delete-comment']);
 }
 
 function esc(String $value)

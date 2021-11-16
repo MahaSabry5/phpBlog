@@ -1,45 +1,47 @@
 <?php
+namespace App\Models\Comment;
 
-class Comment extends connection
+use App\Models\Model;
+require_once __DIR__ . '/../Model.php';
+
+class Comment extends Model
 {
-
-    public function all($id){
-        $conn=connection::DBconnect();
-        $sql="SELECT * FROM comments WHERE post_id = $id";
+    public function all($id)
+    {
+        $conn = $this->connection;
+        $sql = "SELECT * FROM comments WHERE post_id = $id";
         $comments = [];
         // fetch all posts as an associative array called $posts
-        $result = $conn->query($sql) ;
-        if($result){
-            while($row = $result->fetch_assoc()){
-                $comments[]=$row;
+        $result = $conn->query($sql);
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $comments[] = $row;
             }
         }
         return $comments;
     }
-    public function store($request_values){
-//        print_r($request_values );
-//        print_r($_GET);
-//        die();
-        global $conn,$body, $errors;
+
+    public function store($request_values)
+    {
+        global $body, $errors;
+        $conn = $this->connection;
+
         // receive all input values from the form
         $user_id = $_SESSION['user']['id'];
-//        print_r($user_id);die();
         $post_id = $_GET['id'];
         $body = esc($request_values['body']);
 
-
 // form validation: ensure that the form is correctly filled
-        if (empty($body)) { array_push($errors, "Body is required"); }
+        if (empty($body)) {
+            array_push($errors, "Body is required");
+        }
         if (count($errors) == 0) {
             $query = "INSERT INTO comments (user_id,post_id,body,created_at, updated_at) 
 					  VALUES($user_id,$post_id,'$body', now(), now())";
-            $conn->query($query) ;
-            // get id of created user
+            $conn->query($query);
+            // get id of created comment
             $reg_comment_id = $conn->insert_id;
-
-            // put logged in user into session array
             $_SESSION['comment'] = getPostById($reg_comment_id);
-//        print_r($_SESSION);die();
             if ($_SESSION['comment']) {
                 $_SESSION['message'] = "Comment created succesfully";
                 // redirect to admin area
@@ -47,7 +49,19 @@ class Comment extends connection
                 exit(0);
             }
         }
-
     }
+
+    public function delete($id)
+    {
+        $conn = $this->connection;
+        $sql = "DELETE FROM comments WHERE id=$id";
+        $result = $conn->query($sql);
+        if ($result) {
+            $_SESSION['message'] = "Comment successfully deleted";
+            header("location: index.php");
+            exit(0);
+        }
+    }
+
 
 }

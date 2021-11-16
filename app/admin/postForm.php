@@ -1,7 +1,10 @@
 <?php
+
+use App\Models\Category\Category;
+
 include 'storePost.php';
 require_once("../Models/Category/Category.php");
-$categories = (new Category())->getAllCategories()?>
+$categories = (new Category())->all()?>
 <h1 class="text-center text-xl font-bold ">Publish new Post</h1>
 <form method="POST" action="createPost.php" class="mt-10">
 

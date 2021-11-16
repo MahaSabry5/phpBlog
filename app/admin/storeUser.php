@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\users\User;
+
 require_once '../includes/DBconnect.php';
 require_once("../Models/users/User.php");
 

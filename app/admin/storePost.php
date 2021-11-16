@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\posts\Post;
+
 require_once '../includes/DBconnect.php';
 $conn = new connection();
 $conn=$conn->DBconnect();

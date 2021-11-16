@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Category\Category;
+
 require_once '../includes/DBconnect.php';
 require_once("../Models/Category/Category.php");
 

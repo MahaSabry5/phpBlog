@@ -1,4 +1,10 @@
 <?php
+
+use App\Models\Category\Category;
+use App\Models\Comment\Comment;
+use App\Models\posts\Post;
+use App\Models\users\User;
+
 include("includes/public_functions.php");
 include('../resources/navbar.php');
 include('../resources/header.php');

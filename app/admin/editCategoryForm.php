@@ -1,7 +1,10 @@
 <?php
+
+use App\Models\Category\Category;
+
 include 'storeCategory.php';
 require_once("../Models/Category/Category.php");
-$categories = (new Category())->getAllCategories()?>
+$categories = (new Category())->all()?>
 
 <h1 class="text-center text-xl font-bold ">Edit Category</h1>
 <form method="POST" action="editCategory.php" class="mt-10">

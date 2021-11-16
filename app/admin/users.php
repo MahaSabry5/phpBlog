@@ -1,8 +1,11 @@
 <link rel="stylesheet" href="../includes/tableStyle.css">
 <?php
+
+use App\Models\users\User;
+
 $page = "users";
 require_once("../Models/users/User.php");
-$users = (new User())->getAllUsers();
+$users = (new User())->all();
 ?>
 <table>
     <thead>
@@ -14,7 +17,8 @@ $users = (new User())->getAllUsers();
     </thead>
     <tbody>
         <?php if ($users) {
-            foreach ($users as $key => $user): ?>
+            foreach ($users as $key => $user):
+                if($key == 0 ){continue;}?>
                 <tr class="firstRow">
                     <td class="country_name-cell"> <?php echo($user["name"]); ?> </td>
                     <td class="code-cell"><?php echo($user["username"]); ?></td>

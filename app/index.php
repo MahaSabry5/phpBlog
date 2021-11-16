@@ -1,4 +1,9 @@
 <?php
+
+use App\Models\Category\Category;
+use App\Models\posts\Post;
+use App\Models\users\User;
+
 include ("includes/public_functions.php");
 require_once ("includes/register_login.php");
 include('../resources/navbar.php') ;
@@ -9,7 +14,7 @@ require_once ("Models/users/User.php");
 ?>
 
 <body style="font-family: Open Sans, sans-serif">
-<?php $posts = (new Post)->getAllPosts(); ?>
+<?php $posts = (new Post)->all(); ?>
 
 <div class="lg:grid lg:grid-cols-6">
     <?php if ($posts){

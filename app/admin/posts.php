@@ -1,10 +1,15 @@
 <link rel="stylesheet" href="../includes/tableStyle.css">
 
 <?php
+
+use App\Models\Category\Category;
+use App\Models\posts\Post;
+use App\Models\users\User;
+
 $page = "posts";
 require_once("../Models/Category/Category.php");
 require_once("../Models/users/User.php");
-$posts = (new Post)->getAllPosts();
+$posts = (new Post)->all();
 ?>
     <table>
         <thead>
